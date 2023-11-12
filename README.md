@@ -1,2 +1,3 @@
 # ansible-linux
-Linux Ansible playbook for managing home servers
+
+Ansible collection for servers running GNU/Linux distributions
