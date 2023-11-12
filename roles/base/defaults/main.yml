@@ -5,5 +5,7 @@ base_packages:
   - htop
   - tmux
   - dnsutils
+  - git
+  - rsync
 base_extra_packages: []
 ...
