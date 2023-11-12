@@ -6,19 +6,27 @@
     groups: '{{ user_groups }}'
     append: true
 
-- name: SSH directory
-  ansible.builtin.file:
-    path: '/home/{{ user.key }}/.ssh'
-    state: directory
-    owner: '{{ user.key }}'
-    group: '{{ user.key }}'
-    mode: '0700'
+- name: Authorized keys from GitHub
+  ansible.posix.authorized_key:
+    user: '{{ user.key }}'
+    state: present
+    key: '{{ user.value.gh_keys }}'
 
-- name: Authorized keys
-  ansible.builtin.template:
-    src: auth_keys.j2
-    dest: '/home/{{ user.key }}/.ssh/authorized_keys'
-    owner: '{{ user.key }}'
-    group: '{{ user.key }}'
-    mode: '0600'
+- name: 'Bring over dotfiles for {{ user.key }}'
+  ansible.builtin.git:
+    dest: '/home/{{ user.key }}/.dotfiles'
+    repo: '{{ user.value.gh_dotfiles }}'
+  become_user: '{{ user.key }}'
+
+- name: 'Rsync ~/.dotfiles -> ~ for {{ user.key }}'
+  ansible.posix.synchronize:
+    src: '/home/{{ user.key }}/.dotfiles/'
+    dest: '/home/{{ user.key }}'
+    recursive: true
+    rsync_opts:
+      - '--exclude=.git'
+      - '--exclude=LICENSE'
+      - '--exclude=*.md'
+  delegate_to: '{{ inventory_hostname }}'
+  become_user: '{{ user.key }}'
 ...
