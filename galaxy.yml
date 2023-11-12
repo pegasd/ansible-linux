@@ -1,0 +1,21 @@
+---
+namespace: pegasd
+name: linux
+version: 1.0.0
+readme: README.md
+description: Ansible collection for servers running GNU/Linux distributions
+authors:
+  - pegasd
+
+license:
+  - BSD-3-Clause
+
+tags:
+  - system
+  - tools
+  - security
+  - networking
+  - storage
+
+repository: https://github.com/pegasd/ansible-linux
+...
