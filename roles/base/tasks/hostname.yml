@@ -8,7 +8,7 @@
     name: '{{ local_hostname }}'
   notify: Update package cache
 
-- name: Flush handlers to update cache right away
+- name: Update package cache right away if hostname has changed
   ansible.builtin.meta: flush_handlers
 
 - name: Make hostname resolveable
