@@ -1,12 +1,12 @@
 ---
-- name: Manage users
+- name: 'Create user {{ user.key }}'
   ansible.builtin.user:
     name: '{{ user.key }}'
     comment: '{{ user.value.name }}'
     groups: '{{ user_groups }}'
     append: true
 
-- name: Authorized keys from GitHub
+- name: 'Authorized keys from GitHub for {{ user.key }}'
   ansible.posix.authorized_key:
     user: '{{ user.key }}'
     state: present
