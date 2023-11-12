@@ -1,0 +1,19 @@
+---
+- name: Init hostname variable
+  ansible.builtin.set_fact:
+    local_hostname: '{% if hostname is defined %}{{ hostname }}{% else %}{{ ansible_nodename }}{% endif %}'
+
+- name: Set local hostname
+  ansible.builtin.hostname:
+    name: '{{ local_hostname }}'
+  notify: Update package cache
+
+- name: Flush handlers to update cache right away
+  ansible.builtin.meta: flush_handlers
+
+- name: Make hostname resolveable
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.0\.1'
+    line: '127.0.0.1 localhost {{ local_hostname }}'
+...

@@ -1,0 +1,9 @@
+---
+base_packages:
+  - zsh
+  - vim
+  - htop
+  - tmux
+  - dnsutils
+base_extra_packages: []
+...

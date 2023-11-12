@@ -1,0 +1,9 @@
+---
+- name: configure apt
+  ansible.builtin.copy:
+    src: apt.conf
+    dest: /etc/apt/apt.conf.d/20local
+    owner: root
+    group: root
+    mode: 0644
+...

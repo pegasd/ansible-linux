@@ -1,0 +1,11 @@
+---
+- name: Install packages
+  ansible.builtin.package:
+    state: present
+    name: '{{ base_packages }}'
+
+- name: Install extra packages
+  ansible.builtin.package:
+    state: present
+    name: '{{ base_extra_packages }}'
+...

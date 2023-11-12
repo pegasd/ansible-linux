@@ -1,0 +1,10 @@
+---
+- name: Set hostname
+  ansible.builtin.import_tasks: hostname.yml
+
+- name: Configure APT
+  ansible.builtin.import_tasks: apt.yml
+
+- name: Install base packages
+  ansible.builtin.import_tasks: packages.yml
+...
