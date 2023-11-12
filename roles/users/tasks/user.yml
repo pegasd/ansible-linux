@@ -1,0 +1,24 @@
+---
+- name: Manage users
+  ansible.builtin.user:
+    name: '{{ user.key }}'
+    comment: '{{ user.value.name }}'
+    groups: '{{ user_groups }}'
+    append: true
+
+- name: SSH directory
+  ansible.builtin.file:
+    path: '/home/{{ user.key }}/.ssh'
+    state: directory
+    owner: '{{ user.key }}'
+    group: '{{ user.key }}'
+    mode: '0700'
+
+- name: Authorized keys
+  ansible.builtin.template:
+    src: auth_keys.j2
+    dest: '/home/{{ user.key }}/.ssh/authorized_keys'
+    owner: '{{ user.key }}'
+    group: '{{ user.key }}'
+    mode: '0600'
+...

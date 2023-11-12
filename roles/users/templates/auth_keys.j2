@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+{% for pub_key in user.value.pub_keys %}
+{{ pub_key }}
+{% endfor %}
