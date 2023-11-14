@@ -3,7 +3,7 @@
   ansible.builtin.user:
     name: '{{ user.key }}'
     comment: '{{ user.value.name }}'
-    groups: '{{ user_groups }}'
+    groups: '{{ users_groups }}'
     append: true
 
 - name: 'Authorized keys from GitHub for {{ user.key }}'
@@ -13,9 +13,11 @@
     key: '{{ user.value.gh_keys }}'
 
 - name: 'Bring over dotfiles for {{ user.key }}'
-  ansible.builtin.git:
+  ansible.builtin.git: # noqa: latest[git] # I'll just have to take the risk
     dest: '/home/{{ user.key }}/.dotfiles'
     repo: '{{ user.value.gh_dotfiles }}'
+    update: no
+  become: yes
   become_user: '{{ user.key }}'
 
 - name: 'Rsync ~/.dotfiles -> ~ for {{ user.key }}'
@@ -28,5 +30,6 @@
       - '--exclude=LICENSE'
       - '--exclude=*.md'
   delegate_to: '{{ inventory_hostname }}'
+  become: yes
   become_user: '{{ user.key }}'
 ...

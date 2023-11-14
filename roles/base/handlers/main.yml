@@ -6,4 +6,6 @@
 - name: Generate locales
   ansible.builtin.command:
     cmd: locale-gen
+  register: locale_gen
+  changed_when: locale_gen.rc == 0
 ...
