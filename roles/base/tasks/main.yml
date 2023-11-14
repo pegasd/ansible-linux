@@ -5,6 +5,9 @@
 - name: Configure APT
   ansible.builtin.import_tasks: apt.yml
 
+- name: Configure locales
+  ansible.builtin.import_tasks: locale.yml
+
 - name: Install base packages
   ansible.builtin.import_tasks: packages.yml
 ...

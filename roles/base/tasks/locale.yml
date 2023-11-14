@@ -1,0 +1,25 @@
+---
+- name: Install locales package
+  ansible.builtin.package:
+    state: present
+    name: locales
+
+- name: Set default locale
+  template:
+    dest: /etc/default/locale
+    src: locale.j2
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure generateable locales
+  lineinfile:
+    path: /etc/locale.gen
+    line: '{{ item }} {{ item.split(".")[1] }}'
+    regexp: '^(# )?{{ item }} {{ item.split(".")[1] }}'
+    owner: root
+    group: root
+    mode: 0644
+  with_items: '{{ base_locales }}'
+  notify: Generate locales
+...

@@ -2,4 +2,8 @@
 - name: Update package cache
   ansible.builtin.apt:
     update_cache: yes
+
+- name: Generate locales
+  ansible.builtin.command:
+    cmd: locale-gen
 ...

@@ -1,4 +1,9 @@
 ---
+# locale
+base_locales:
+  - C.UTF-8
+
+# packages
 base_packages:
   - zsh
   - vim

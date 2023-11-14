@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+LANG='{{ base_locales[0] }}'
+LC_ALL='{{ base_locales[0] }}'
+LANGUAGE='{{ base_locales[0].split('.')[0] }}:{{ base_locales[0].split('_')[0] }}'
